@@ -1,0 +1,15 @@
+.token-card {
+  height: auto;
+}
+
+.token-price,
+.price-value {
+  font-weight: 510;
+  font-family: "Roboto Mono", monospace;
+  font-size: 16px;
+}
+
+.token-short,
+.price-short {
+  font-weight: 510;
+}

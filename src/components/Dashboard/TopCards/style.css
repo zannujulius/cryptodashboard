@@ -1,0 +1,9 @@
+.top-card__title {
+  font-size: 12px;
+}
+
+.top-card__value {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Roboto Mono", monospace;
+}

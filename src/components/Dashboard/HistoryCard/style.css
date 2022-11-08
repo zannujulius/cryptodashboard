@@ -1,0 +1,20 @@
+.history-date {
+  font-size: 13px;
+}
+
+.history-title {
+  font-weight: 400;
+  font-size: 17px;
+}
+
+.history-middle {
+}
+
+.history-value {
+  font-weight: 510;
+  font-family: "Roboto Mono", monospace;
+  font-size: 17px;
+}
+
+.token-price {
+}
