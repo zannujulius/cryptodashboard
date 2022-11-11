@@ -8,12 +8,14 @@ import React, { useState, useEffect } from "react";
 import ActivityChart from "../../components/Dashboard/ActivityChart";
 import ActivityCard from "../../components/Dashboard/ActvityCard";
 import { sampleData } from "./data";
-import { MdAdd, MdSettings } from "react-icons/md";
+import { MdAdd, MdNotificationAdd, MdSearch, MdSettings } from "react-icons/md";
 import { DatePicker, Space } from "antd";
 import HistoryCard from "../../components/Dashboard/HistoryCard";
 import TokenCard from "../../components/Dashboard/TokenCard";
 import PriceCard from "../../components/Dashboard/PriceCard";
 import axios from "axios";
+import Skimmer from "../../components/Skimmer";
+import { AiFillNotification, AiOutlineSearch } from "react-icons/ai";
 
 const Dashboard = () => {
   const { Option } = Select;
@@ -42,7 +44,7 @@ const Dashboard = () => {
     (async () => {
       try {
         let res = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Clitecoin%2Cbinancecoin&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=7d"
+          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Clitecoin%2Cbinancecoin%2Cluna%2Csolana%2Ctether&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=7d"
         );
         setcoindata(res.data);
       } catch (err) {
@@ -191,7 +193,7 @@ const Dashboard = () => {
                       }}
                     >
                       <ActivityChart />
-                      <div>
+                      <div className="d-none">
                         {sampleData.map((i, index) => (
                           <ActivityCard
                             title={i.title}
@@ -275,8 +277,13 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="mt-3">
-                      {Array.from(Array(8)).map((i, index) => (
+                      {/* {Array.from(Array(6)).map((i, index) => (
                         <HistoryCard key={index} index={index} />
+                      ))} */}
+                      {Array.from(Array(6)).map((i, index) => (
+                        <div className="my-3" key={index}>
+                          <Skimmer width={"100%"} heigth={"40px"} />
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -287,21 +294,83 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-            <div className="mt-5">
-              <div className="d-flex align-items-center justify-content-between">
-                <div className="title">Favorites</div>
+            <div className="row mt-3">
+              <div className="col-6">
+                <div className="dshb-card__title">Orizon crypto</div>
+                <div className="dshb-card__caption">Increase your profit.</div>
+              </div>
+              <div className="col-6 d-flex align-items-center justify-content-end">
                 <div
-                  className=""
+                  className="bg-white d-flex align-items-center justify-content-center shadow-sm"
+                  style={{
+                    borderRadius: "50%",
+                    width: 35,
+                    height: 35,
+                  }}
+                >
+                  <div className="">
+                    <AiOutlineSearch size={18} />
+                  </div>
+                </div>
+                <div
+                  className="d-flex mx-2 align-items-center justify-content-center bg-white shadow-sm"
+                  style={{
+                    borderRadius: "50%",
+                    width: 35,
+                    height: 35,
+                  }}
+                >
+                  <div className="">
+                    <AiFillNotification size={18} />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row mt-3 my-5 d-flex align-items-center">
+              <div className="col-12 ">
+                <div
+                  className="card-bg rounded-2"
+                  style={{
+                    background: color.primary,
+                  }}
+                >
+                  <div className="row">
+                    <div className="col-6"></div>
+                    <div className="col-6"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-2">
+              <div className="d-flex align-items-center justify-content-between">
+                <div
+                  className="title"
                   style={{
                     color: color.primary,
+                    fontSize: 14,
+                  }}
+                >
+                  Favorites
+                </div>
+                <div
+                  className="text-decoration-underline"
+                  style={{
+                    fontSize: 13,
                   }}
                 >
                   See all
                 </div>
               </div>
-              <div className="row d-flex align-items-start ">
-                {data.map((item, index) => (
-                  <div className="col-6 my-4" key={item.id}>
+              <div
+                className="row d-flex align-items-start "
+                style={{
+                  overflowX: "scroll",
+                  overflowY: "hidden",
+                }}
+              >
+                {/* {data.map((item, index) => (
+                  <div className="col-6 my-2" key={item.id}>
                     <TokenCard
                       name={item.name}
                       symbol={item.symbol}
@@ -313,16 +382,44 @@ const Dashboard = () => {
                       sparkline={item.sparkline_in_7d.price}
                     />
                   </div>
+                ))} */}
+                {Array.from(Array(2)).map((i, index) => (
+                  <div className="col-6 my-2" key={index}>
+                    <div
+                      className="rounded-2"
+                      style={{
+                        height: 200,
+                      }}
+                    >
+                      <Skimmer width={"100%"} heigth={"100%"} />
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
             <div className="mt-2">
-              <div className="d-flex align-items-center ">
-                <div className="title">Live Prices</div>
+              <div className="d-flex align-items-center justify-content-between">
+                <div
+                  className="title"
+                  style={{
+                    color: color.primary,
+                    fontSize: 14,
+                  }}
+                >
+                  Live charts
+                </div>
+                <div
+                  className="text-decoration-underline"
+                  style={{
+                    fontSize: 13,
+                  }}
+                >
+                  See all
+                </div>
               </div>
               <div className="row d-flex align-items-start ">
                 {coindata.map((item, index) => (
-                  <div className="col-12 my-4" key={item.id}>
+                  <div className="col-12 my-2" key={item.id}>
                     <PriceCard
                       name={item.name}
                       symbol={item.symbol}

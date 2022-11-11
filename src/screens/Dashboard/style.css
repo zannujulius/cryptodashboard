@@ -42,11 +42,26 @@
 .tab-right_btn {
   font-size: 15px;
   cursor: pointer;
-  color: #ffe4b82f;
+  /* color: #ffe4b82f; */
   font-weight: 500;
 }
 
 .title {
   font-size: 18px;
   font-weight: 510;
+}
+
+.dshb-card__caption {
+  font-size: 13px;
+  color: #a1a1a1;
+}
+
+.dshb-card__title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.card-bg {
+  width: 100%;
+  height: 130px;
 }

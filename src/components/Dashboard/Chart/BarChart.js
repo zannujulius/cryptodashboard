@@ -17,7 +17,7 @@ const BarChart = () => {
               (i) => Math.floor(Math.random() * 100) + 1
             ),
             // borderColor: "#56BBF1",
-            barThickness: 20,
+            barThickness: 15,
             borderRadius: 5,
             radius: 0,
             // borderWidth: 2,
@@ -37,7 +37,7 @@ const BarChart = () => {
             },
           },
           title: {
-            display: true,
+            display: false,
             color: "#a1a1a1",
             text: "BETWEEN SEP 9 - 27",
             font: {

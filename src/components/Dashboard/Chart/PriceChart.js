@@ -1,18 +1,24 @@
 import Chart from "chart.js/auto";
 import { Bar, Line } from "react-chartjs-2";
 import { color } from "../../../constant/color";
-const PriceChart = ({ sparkline }) => {
+const PriceChart = ({ sparkline, color }) => {
+  const percentcolor = (item) => {
+    return item < 0 ? "#ff634723" : "#b8ffc72f";
+  };
+
+  const borderColor = (item) => {
+    return item < 0 ? "tomato" : "green";
+  };
   return (
     <Line
       data={{
         labels: sparkline,
         datasets: [
           {
-            label: "PMS",
             fill: true,
-            backgroundColor: "#ffe4b82f",
+            backgroundColor: percentcolor(color),
             data: sparkline,
-            borderColor: "#f4bb60",
+            borderColor: borderColor(color),
             radius: 0,
             borderWidth: 2,
             // borderWidth: 2,

@@ -39,13 +39,20 @@ const HistoryCard = ({ index }) => {
       </div>
       <div className="container-fluid w-100">
         <div className="row d-flex align-items-center justify-content-between">
-          <div className="col-3  ">
+          <div className="col-4">
             <div className="d-flex align-items-center">
               <div className="p-2">
                 <MdBadge size={20} />
               </div>
               <div className="mx-2">
-                <div className="history-title">{title()}</div>
+                <div
+                  className="history-title"
+                  style={{
+                    fontSize: 14,
+                  }}
+                >
+                  {title()}
+                </div>
                 <div
                   className="history-date"
                   style={{
@@ -57,8 +64,8 @@ const HistoryCard = ({ index }) => {
               </div>
             </div>
           </div>
-          <div className="col-3 ">
-            <div className="d-flex align-items-center py-1 ">
+          <div className="col-4">
+            <div className="d-flex align-items-center justify-content-center py-1 ">
               <div
                 className="d-flex align-items-center justify-content-center rounded-2 p-2"
                 style={{
@@ -68,8 +75,8 @@ const HistoryCard = ({ index }) => {
                 <div
                   className=""
                   style={{
-                    width: 12,
-                    height: 12,
+                    width: 10,
+                    height: 10,
                     borderRadius: "50%",
                     background: "tomato",
                   }}
@@ -78,21 +85,28 @@ const HistoryCard = ({ index }) => {
               <div className="history-middle px-3 ">Supplies</div>
             </div>
           </div>
-          <div className="col-3 ">
-            <div className="d-flex align-items-center ">
+          <div className="col-4">
+            <div className="d-flex align-items-center justify-content-end">
               <div
                 className="rounded-2 d-flex align-items-center justify-content-center"
                 style={{
-                  width: 35,
-                  height: 35,
+                  width: 25,
+                  height: 25,
                   background: "#f4f4f4",
                 }}
               >
                 <div className="">
-                  <BsPaperclip size={18} />
+                  <BsPaperclip size={16} />
                 </div>
               </div>
-              <div className="history-value mx-2">+$50,224.38</div>
+              <div
+                className="history-value mx-1"
+                style={{
+                  fontSize: 13,
+                }}
+              >
+                +$50,224.38
+              </div>
             </div>
           </div>
         </div>
