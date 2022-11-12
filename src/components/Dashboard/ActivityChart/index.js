@@ -18,7 +18,7 @@ const ActivityChart = () => {
       <div
         className=""
         style={{
-          height: 250,
+          height: 380,
         }}
       >
         <BarChart />

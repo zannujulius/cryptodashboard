@@ -57,6 +57,7 @@ const HistoryCard = ({ index }) => {
                   className="history-date"
                   style={{
                     color: color.grey,
+                    fontSize: 12,
                   }}
                 >
                   {moment(Date.now()).format("lll")}

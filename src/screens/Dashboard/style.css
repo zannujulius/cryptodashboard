@@ -40,7 +40,7 @@
 }
 
 .tab-right_btn {
-  font-size: 15px;
+  font-size: 14px;
   cursor: pointer;
   /* color: #ffe4b82f; */
   font-weight: 500;
@@ -63,5 +63,44 @@
 
 .card-bg {
   width: 100%;
-  height: 130px;
+  height: 120px;
+  position: relative;
+}
+
+.btn-card {
+  position: absolute;
+  left: 10px;
+  bottom: -20px;
+}
+
+.action-btn {
+  height: 35px;
+}
+
+.action-title {
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.portfolio-title {
+}
+
+.portfolio-value {
+  font-weight: 600;
+  font-size: 20px;
+  font-family: "Roboto Mono", monospace;
+}
+
+.portfolio-percentage {
+  font-size: 13px;
+  color: #b5c6ff;
+  font-weight: 400;
+}
+
+.circle-bg {
+  background: #3210bef1;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: absolute;
 }

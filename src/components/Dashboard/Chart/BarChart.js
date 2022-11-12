@@ -10,14 +10,27 @@ const BarChart = () => {
         ),
         datasets: [
           {
-            label: "PMS",
             fill: true,
             backgroundColor: "#f4bb60",
             data: Array.from(Array(10)).map(
               (i) => Math.floor(Math.random() * 100) + 1
             ),
             // borderColor: "#56BBF1",
-            barThickness: 15,
+            barThickness: 9,
+            borderRadius: 5,
+            radius: 0,
+            // borderWidth: 2,
+            pointBorderWidth: 1,
+            tension: 0.1,
+          },
+          {
+            fill: true,
+            backgroundColor: "#bbecff",
+            data: Array.from(Array(10)).map(
+              (i) => Math.floor(Math.random() * 100) + 1
+            ),
+            // borderColor: "#56BBF1",
+            barThickness: 9,
             borderRadius: 5,
             radius: 0,
             // borderWidth: 2,

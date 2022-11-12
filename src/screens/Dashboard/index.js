@@ -8,7 +8,13 @@ import React, { useState, useEffect } from "react";
 import ActivityChart from "../../components/Dashboard/ActivityChart";
 import ActivityCard from "../../components/Dashboard/ActvityCard";
 import { sampleData } from "./data";
-import { MdAdd, MdNotificationAdd, MdSearch, MdSettings } from "react-icons/md";
+import {
+  MdAdd,
+  MdNotificationAdd,
+  MdSearch,
+  MdSettings,
+  MdArrowDropUp,
+} from "react-icons/md";
 import { DatePicker, Space } from "antd";
 import HistoryCard from "../../components/Dashboard/HistoryCard";
 import TokenCard from "../../components/Dashboard/TokenCard";
@@ -16,15 +22,25 @@ import PriceCard from "../../components/Dashboard/PriceCard";
 import axios from "axios";
 import Skimmer from "../../components/Skimmer";
 import { AiFillNotification, AiOutlineSearch } from "react-icons/ai";
-
+import { AiOutlineDownload } from "react-icons/ai";
+import { HiChartBar } from "react-icons/hi";
 const Dashboard = () => {
   const { Option } = Select;
   const [tab, setTab] = useState(1);
   const { RangePicker } = DatePicker;
   const [tabState, setTabState] = useState(1);
   const [data, setdata] = useState([]);
-
+  const [loading, setloading] = useState(true);
+  const [tokenloading, settokenloading] = useState(true);
   const [coindata, setcoindata] = useState([]);
+  const [loadhistory, setloadhistory] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setloadhistory(false);
+    }, 3000);
+    return () => {};
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -33,6 +49,9 @@ const Dashboard = () => {
           "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=7d"
         );
         setdata(res.data);
+        setTimeout(() => {
+          setloading(false);
+        }, 3000);
       } catch (err) {
         console.log(err);
       }
@@ -44,9 +63,12 @@ const Dashboard = () => {
     (async () => {
       try {
         let res = await axios.get(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cethereum%2Clitecoin%2Cbinancecoin%2Cluna%2Csolana%2Ctether&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=7d"
+          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin%2Cbinancecoin%2Csolana%2Ctether&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=7d"
         );
         setcoindata(res.data);
+        setTimeout(() => {
+          settokenloading(false);
+        }, 2000);
       } catch (err) {
         console.log(err);
       }
@@ -89,8 +111,8 @@ const Dashboard = () => {
                         size="middle"
                         bordered={false}
                       >
-                        <Option>Value</Option>
-                        <Option>Value 1</Option>
+                        <Option>Business Account</Option>
+                        <Option>Customer Account</Option>
                       </Select>
                     </div>
                     <div
@@ -207,7 +229,7 @@ const Dashboard = () => {
                   </div>
                   <div className="col-8">
                     <div className="row d-flex align-items-center justify-content-between mt-3">
-                      <div className="col-7">
+                      <div className="col-5">
                         <div className="d-flex align-items-center tab-right_cover">
                           <div
                             className="tab-right_btn px-2 py-1 mx-2"
@@ -222,27 +244,14 @@ const Dashboard = () => {
                           >
                             History
                           </div>
-                          <div
-                            className="tab-right_btn px-2 py-1 mx-2"
-                            onClick={() => setTabState(2)}
-                            style={{
-                              color: tabState == 2 ? color.primary : "",
-                              borderBottom:
-                                tabState == 2
-                                  ? `2px solid ${color.primary}`
-                                  : "",
-                            }}
-                          >
-                            Upcoming
-                          </div>
                         </div>
                       </div>
-                      <div className="col-4">
+                      <div className="col-6">
                         <div className="d-flex align-items-center justify-content-end  ">
                           <div className="">
                             <RangePicker
                               style={{
-                                width: 150,
+                                width: 250,
                                 borderRadius: 5,
                                 background: "#f3f4f8",
                                 fontSize: 14,
@@ -254,7 +263,7 @@ const Dashboard = () => {
                             />
                           </div>
                           <div
-                            className="d-flex align-items-center justify-content-center rounded-2 mx-3 p-2 "
+                            className="d-flex align-items-center justify-content-center rounded-2 mx-3 p-1"
                             style={{
                               background: "#eee",
                             }}
@@ -264,7 +273,7 @@ const Dashboard = () => {
                             </div>
                           </div>
                           <div
-                            className="d-flex align-items-center justify-content-center rounded-2 mx-1 p-2"
+                            className="d-flex align-items-center justify-content-center rounded-2 mx-1 p-1"
                             style={{
                               background: color.primary,
                             }}
@@ -277,14 +286,15 @@ const Dashboard = () => {
                       </div>
                     </div>
                     <div className="mt-3">
-                      {/* {Array.from(Array(6)).map((i, index) => (
-                        <HistoryCard key={index} index={index} />
-                      ))} */}
-                      {Array.from(Array(6)).map((i, index) => (
-                        <div className="my-3" key={index}>
-                          <Skimmer width={"100%"} heigth={"40px"} />
-                        </div>
-                      ))}
+                      {loadhistory
+                        ? Array.from(Array(6)).map((i, index) => (
+                            <div className="my-3" key={index}>
+                              <Skimmer width={"100%"} heigth={"40px"} />
+                            </div>
+                          ))
+                        : Array.from(Array(6)).map((i, index) => (
+                            <HistoryCard key={index} index={index} />
+                          ))}
                     </div>
                   </div>
                 </div>
@@ -335,9 +345,51 @@ const Dashboard = () => {
                     background: color.primary,
                   }}
                 >
-                  <div className="row">
-                    <div className="col-6"></div>
-                    <div className="col-6"></div>
+                  <div className="d-flex px-3 py-3 align-items-center justify-content-between">
+                    <div className="">
+                      <div className="text-white portfolio-title">
+                        My Porfolio
+                      </div>
+                      <div className=" text-white portfolio-value">
+                        $51,938.00
+                      </div>
+                    </div>
+                    <div className="d-flex align-items-center justify-content-end flex-column">
+                      <div
+                        className="d-flex rounded-1 align-items-center justify-content-center"
+                        style={{}}
+                      >
+                        <div className="">
+                          <HiChartBar size={15} color={"#b5c6ff"} />
+                        </div>
+                      </div>
+
+                      <div className="d-flex align-items-center justify-content-end ">
+                        <div>
+                          <MdArrowDropUp size={16} color={"#b5c6ff"} />
+                        </div>
+                        <div className="portfolio-percentage">2.5%</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row btn-card w-100 d-flex align-items-center justify-content-center">
+                    <div className="col-5">
+                      <div className="action-btn rounded-2 bg-white bg-white shadow-lg d-flex align-items-center justify-content-center">
+                        <div className="action-icon">
+                          <AiOutlineDownload size={16} />
+                        </div>
+                        <div className="action-title mx-1">Deposit</div>
+                      </div>
+                    </div>
+                    <div className="col-5">
+                      <div className="action-btn rounded-2 bg-white bg-white shadow-lg d-flex align-items-center justify-content-center">
+                        <div className="action-icon">
+                          <AiOutlineDownload size={16} />
+                        </div>
+                        <div className="action-title mx-1">Withdrawal</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -369,32 +421,33 @@ const Dashboard = () => {
                   overflowY: "hidden",
                 }}
               >
-                {/* {data.map((item, index) => (
-                  <div className="col-6 my-2" key={item.id}>
-                    <TokenCard
-                      name={item.name}
-                      symbol={item.symbol}
-                      image={item.image}
-                      current_price={item.current_price}
-                      price_change_percentage_7d_in_currency={
-                        item.price_change_percentage_7d_in_currency
-                      }
-                      sparkline={item.sparkline_in_7d.price}
-                    />
-                  </div>
-                ))} */}
-                {Array.from(Array(2)).map((i, index) => (
-                  <div className="col-6 my-2" key={index}>
-                    <div
-                      className="rounded-2"
-                      style={{
-                        height: 200,
-                      }}
-                    >
-                      <Skimmer width={"100%"} heigth={"100%"} />
-                    </div>
-                  </div>
-                ))}
+                {loading
+                  ? Array.from(Array(2)).map((i, index) => (
+                      <div className="col-6 my-2" key={index}>
+                        <div
+                          className="rounded-2"
+                          style={{
+                            height: 200,
+                          }}
+                        >
+                          <Skimmer width={"100%"} heigth={"100%"} />
+                        </div>
+                      </div>
+                    ))
+                  : data.map((item, index) => (
+                      <div className="col-6 my-2" key={item.id}>
+                        <TokenCard
+                          name={item.name}
+                          symbol={item.symbol}
+                          image={item.image}
+                          current_price={item.current_price}
+                          price_change_percentage_7d_in_currency={
+                            item.price_change_percentage_7d_in_currency
+                          }
+                          sparkline={item.sparkline_in_7d.price}
+                        />
+                      </div>
+                    ))}
               </div>
             </div>
             <div className="mt-2">
@@ -418,20 +471,26 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="row d-flex align-items-start ">
-                {coindata.map((item, index) => (
-                  <div className="col-12 my-2" key={item.id}>
-                    <PriceCard
-                      name={item.name}
-                      symbol={item.symbol}
-                      image={item.image}
-                      current_price={item.current_price}
-                      price_change_percentage_7d_in_currency={
-                        item.price_change_percentage_7d_in_currency
-                      }
-                      sparkline={item.sparkline_in_7d.price}
-                    />
-                  </div>
-                ))}
+                {tokenloading
+                  ? Array.from(Array(5)).map((_, i) => (
+                      <div className="col-12 my-2" key={i}>
+                        <Skimmer width={"100%"} heigth={"40px"} />
+                      </div>
+                    ))
+                  : coindata.map((item, index) => (
+                      <div className="col-12 my-2" key={item.id}>
+                        <PriceCard
+                          name={item.name}
+                          symbol={item.symbol}
+                          image={item.image}
+                          current_price={item.current_price}
+                          price_change_percentage_7d_in_currency={
+                            item.price_change_percentage_7d_in_currency
+                          }
+                          sparkline={item.sparkline_in_7d.price}
+                        />
+                      </div>
+                    ))}
               </div>
             </div>
           </div>
